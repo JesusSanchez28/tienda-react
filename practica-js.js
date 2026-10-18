@@ -125,12 +125,12 @@ const productos = [
 // );
 // console.log("el valor tota del inventario es: $"+valorTotalInventario.toLocaleString('es-CO'))
 
-const copiaProducto = {
-    ...productos[4],
-    stock:2,
-    precio: 230000
-};
+// const copiaProducto = {
+//     ...productos[4],
+//     stock:2,
+//     precio: 230000
+// };
 
-const estado = copiaProducto.stock > 0? 'disponible' : 'agotado';
+// const estado = copiaProducto.stock > 0? 'disponible' : 'agotado';
 
-console.log(`El producto ${productos[4].nombre} cuesta $${productos[4].precio} y tiene este estado: ${estado}`); 
+// console.log(`El producto ${productos[4].nombre} cuesta $${productos[4].precio} y tiene este estado: ${estado}`); 

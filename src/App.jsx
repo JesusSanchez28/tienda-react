@@ -9,7 +9,7 @@ function App() {
     <main className="contenedor"> 
       <h1>Tienda tecnológica</h1> 
       <p>Productos disponibles: {disponibles.length}</p> 
-      <p>Valor del inventario: ${valorInventario}</p> 
+      <p>Valor del inventario: ${valorInventario.toLocaleString('es-CO')}</p> 
  
       <section className="productos"> 
         {productos.map(producto => ( 
