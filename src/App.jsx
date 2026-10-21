@@ -1,16 +1,48 @@
-import ProductoCard from './components/ProductoCard'; import { productos } from './data/productos'; import './App.css'; 
+import ProductoCard from './components/ProductoCard';
+ import {productosIniciales} from './data/productos';
+  import './App.css'; 
 import { useState } from "react";
-function App() { 
+
+function App() {
+  const [productos, setProductos] =
+    useState(productosIniciales);
   const disponibles = productos.filter(producto => producto.stock > 0);   const valorInventario = productos.reduce( 
     (total, producto) => total + producto.precio * producto.stock, 
     0 
   );  
+
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
   const [stock, setStock] = useState("");
   const [editandoId, setEditandoId] = useState(null);
+  const guardarProducto = (e) => {
+  e.preventDefault();
+  if (
+    nombre.trim() === "" ||
+    precio === "" ||
+    stock === ""
+  ) {
+    alert("Todos los campos son obligatorios");
+    return;
+  }
+  const nuevoProducto = {
+    id: Date.now(),
+    nombre: nombre.trim(),
+    precio: Number(precio),
+    stock: Number(stock),
+    categoria: "Sin categoría"
+  };
+  setProductos([
+    ...productos,
+    nuevoProducto
+  ]);
+  setNombre("");
+  setPrecio("");
+  setStock("");
+};
   return ( 
     <>
+    
     <form onSubmit={guardarProducto}>
       <input
         type="text"

@@ -1,8 +1,6 @@
 
 function ProductoCard({ producto }) { 
-  const estado = producto.stock > 0 ? 'Disponible' : 'Agotado'; 
-  
-
+  const estado = producto.stock > 0 ? 'Disponible' : 'Agotado';
   return ( 
     <article className="producto-card"> 
       <h2>{producto.nombre}</h2> 
