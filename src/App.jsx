@@ -15,31 +15,57 @@ function App() {
   const [precio, setPrecio] = useState("");
   const [stock, setStock] = useState("");
   const [editandoId, setEditandoId] = useState(null);
-  const guardarProducto = (e) => {
-  e.preventDefault();
-  if (
-    nombre.trim() === "" ||
-    precio === "" ||
-    stock === ""
-  ) {
+  const guardarProducto = (e) =>{
+    e.preventDefault();
+    if (nombre.trim() === "" || precio === "" || stock === "") {
     alert("Todos los campos son obligatorios");
     return;
-  }
-  const nuevoProducto = {
+    }
+    if (Number(precio) <= 0 || Number(stock) < 0) {
+    alert("Revise precio y stock");
+    return;
+    }
+    if (editandoId === null) {
+    const nuevoProducto = {
     id: Date.now(),
     nombre: nombre.trim(),
     precio: Number(precio),
-    stock: Number(stock),
-    categoria: "Sin categoría"
-  };
-  setProductos([
-    ...productos,
-    nuevoProducto
-  ]);
-  setNombre("");
-  setPrecio("");
-  setStock("");
-};
+    stock: Number(stock)
+    };
+    setProductos([...productos, nuevoProducto]);
+    } else {
+    const actualizados = productos.map((producto) =>
+    producto.id === editandoId
+    ? {
+    ...producto,
+    nombre: nombre.trim(),
+    precio: Number(precio),
+    stock: Number(stock)
+    }
+    : producto
+    );
+    setProductos(actualizados);
+    setEditandoId(null);
+    }
+    setNombre("");
+    setPrecio("");
+    setStock("");
+    };
+    const editarProducto = (producto) => {
+    setEditandoId(producto.id);
+    setNombre(producto.nombre);
+    setPrecio(producto.precio);
+    setStock(producto.stock);
+    };
+    const eliminarProducto = (id) => {
+    const confirmar = window.confirm(
+    ";¿Seguro que desea eliminar este producto?"
+    );
+    if (!confirmar) return;
+    setProductos(
+    productos.filter((producto) => producto.id !== id)
+    );
+    };
   return ( 
     <>
     
@@ -80,6 +106,24 @@ function App() {
           /> 
         ))} 
       </section> 
+      <section>
+      {productos.map((producto) => (
+          <article key={producto.id}>
+              <h3>{producto.nombre}</h3>
+              <p>Precio: ${producto.precio}</p>
+              <p>Stock: {producto.stock}</p>
+
+              <button onClick={() => editarProducto(producto)}>
+                  Editar
+              </button>
+
+              <button onClick={() => eliminarProducto(producto.id)}>
+                  Eliminar
+              </button>
+          </article>
+      ))}
+      </section>
+
     </main> 
     </>
   ); 
